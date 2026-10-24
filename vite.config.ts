@@ -10,6 +10,6 @@ export default defineConfig({
   },
   vite: {
     // mongodb -> whatwg-url imports Node's "punycode"; the edge polyfill is missing, so use the npm package.
-    resolve: { alias: { punycode: require.resolve("punycode/punycode.js") } },
+    resolve: { alias: [{ find: /^punycode\/?$/, replacement: require.resolve("punycode/punycode.js") }] },
   },
 });
