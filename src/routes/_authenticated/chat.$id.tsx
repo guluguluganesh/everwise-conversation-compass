@@ -36,7 +36,7 @@ function ChatWindow({ id, initial }: { id: string; initial: UIMessage[] }) {
     messages: initial,
     transport,
     onError: (e) => toast.error(e.message || "Something went wrong. Please try again."),
-    onFinish: () => { qc.invalidateQueries({ queryKey: ["conversations"] }); qc.setQueryData(["messages", id], undefined); },
+    onFinish: () => { qc.invalidateQueries({ queryKey: ["conversations"] }); qc.invalidateQueries({ queryKey: ["messages", id] }); },
   });
   const busy = status === "submitted" || status === "streaming";
   const bottom = useRef<HTMLDivElement>(null);
