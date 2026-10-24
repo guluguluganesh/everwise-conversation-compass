@@ -8,6 +8,7 @@ export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
   },
+  nitro: { alias: { punycode: require.resolve("punycode/punycode.js"), "punycode/": require.resolve("punycode/punycode.js") } },
   vite: {
     // mongodb -> whatwg-url imports Node's "punycode"; the edge polyfill is missing, so use the npm package.
     resolve: { alias: [{ find: /^punycode\/?$/, replacement: require.resolve("punycode/punycode.js") }] },
