@@ -33,6 +33,7 @@ function ChatLayout() {
     if (error) return toast.error(error.message);
     await qc.invalidateQueries({ queryKey: ["conversations"] });
     if (params.id === id) navigate({ to: "/chat" });
+    return;
   }
 
   async function signOut() {

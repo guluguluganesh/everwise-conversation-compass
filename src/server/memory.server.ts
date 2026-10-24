@@ -12,7 +12,7 @@ export interface MemoryDoc {
 let clientPromise: Promise<MongoClient> | null = null;
 
 async function getCollection() {
-  const uri = process.env.MONGODB_URI;
+  const uri = process.env['MONGODB_URI'];
   if (!uri) throw new Error("MONGODB_URI is not configured");
   if (!clientPromise) {
     clientPromise = new MongoClient(uri, { serverSelectionTimeoutMS: 8000 }).connect().catch((e) => {

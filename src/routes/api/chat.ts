@@ -44,7 +44,7 @@ export const Route = createFileRoute("/api/chat")({
         }
 
         const memories = await loadMemories(userId);
-        const apiKey = process.env.LOVABLE_API_KEY!;
+        const apiKey = process.env['LOVABLE_API_KEY']!;
         const runIdFetch = createLovableAiGatewayRunIdFetch(getLovableAiGatewayRunId(request));
         const provider = createOpenAI({
           baseURL: "https://ai.gateway.lovable.dev/v1",

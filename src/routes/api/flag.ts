@@ -15,7 +15,7 @@ export const Route = createFileRoute("/api/flag")({
 
         let lesson = note?.trim() || "";
         try {
-          const apiKey = process.env.LOVABLE_API_KEY!;
+          const apiKey = process.env['LOVABLE_API_KEY']!;
           const provider = createOpenAI({
             baseURL: "https://ai.gateway.lovable.dev/v1",
             apiKey,

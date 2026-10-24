@@ -57,7 +57,7 @@ function ChatWindow({ id, initial }: { id: string; initial: UIMessage[] }) {
         <div className="mx-auto max-w-3xl px-4 pb-8 pt-14">
           {messages.length === 0 && <p className="mt-20 text-center text-muted-foreground">Send a message to start.</p>}
           {messages.map((m, i) => (
-            <MessageRow key={m.id} m={m} question={i > 0 ? textOf(messages[i - 1]) : ""} streaming={busy && i === messages.length - 1} />
+            <MessageRow key={m.id} m={m} question={i > 0 ? textOf(messages[i - 1]!) : ""} streaming={busy && i === messages.length - 1} />
           ))}
           {status === "submitted" && (
             <div className="flex gap-4 py-4"><AtlasMark className="h-7 w-7 shrink-0" /><div className="flex items-center gap-1 pt-2">{[0, 1, 2].map((d) => <span key={d} className="h-2 w-2 animate-bounce rounded-full bg-muted-foreground" style={{ animationDelay: `${d * 150}ms` }} />)}</div></div>
