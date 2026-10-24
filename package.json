@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.101",
-    "@ai-sdk/provider": "^4.0.33",
     "@ai-sdk/react": "^4.0.152",
     "@hookform/resolvers": "^5.2.2",
     "@lovable.dev/cloud-auth-js": "^1.1.2",

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createOpenAI } from "@ai-sdk/openai";
-import { convertToModelMessages, stepCountIs, streamText, tool, type UIMessage } from "ai";
+import { convertToModelMessages, stepCountIs, streamText, tool, type LanguageModel, type UIMessage } from "ai";
 import { z } from "zod";
 import { authFromRequest } from "@/server/auth.server";
 import { loadMemories, memoriesToPrompt, saveMemory } from "@/server/memory.server";
@@ -54,7 +54,7 @@ export const Route = createFileRoute("/api/chat")({
         });
 
         const result = streamText({
-          model: provider.responses("openai/gpt-6-astra"),
+          model: provider.responses("openai/gpt-6-astra") as unknown as LanguageModel,
           instructions: BASE + memoriesToPrompt(memories),
           messages: await convertToModelMessages(messages),
           abortSignal: request.signal,

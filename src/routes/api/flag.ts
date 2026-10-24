@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createOpenAI } from "@ai-sdk/openai";
-import { streamText } from "ai";
+import { streamText, type LanguageModel } from "ai";
 import { authFromRequest } from "@/server/auth.server";
 import { saveMemory } from "@/server/memory.server";
 
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/api/flag")({
             headers: { "Lovable-API-Key": apiKey, "X-Lovable-AIG-SDK": "vercel-ai-sdk" },
           });
           const r = streamText({
-            model: provider.responses("openai/gpt-6-astra"),
+            model: provider.responses("openai/gpt-6-astra") as unknown as LanguageModel,
             instructions: "An AI assistant gave a wrong answer. Write ONE concise, general rule (max 2 sentences) the assistant must follow in future to never repeat this mistake. Output only the rule.",
             prompt: `User question:\n${question.slice(0, 4000)}\n\nWrong answer:\n${answer.slice(0, 6000)}\n\nUser's explanation of what was wrong:\n${note || "(none)"}`,
             providerOptions: { openai: { store: false, forceReasoning: true, reasoningEffort: "low" } },
