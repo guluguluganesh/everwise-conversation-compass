@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createOpenAI } from "@ai-sdk/openai";
-import { convertToModelMessages, stepCountIs, streamText, tool, type LanguageModel, type UIMessage } from "ai";
+import { convertToModelMessages, generateId, stepCountIs, streamText, tool, type LanguageModel, type UIMessage } from "ai";
 import { z } from "zod";
 import { authFromRequest } from "@/server/auth.server";
 import { loadMemories, memoriesToPrompt, saveMemory } from "@/server/memory.server";
@@ -91,10 +91,11 @@ export const Route = createFileRoute("/api/chat")({
         return withLovableAiGatewayRunIdHeader(
           result.toUIMessageStreamResponse({
             originalMessages: messages,
+            generateMessageId: generateId,
             sendReasoning: true,
             onFinish: async ({ responseMessage }) => {
               const { error } = await supabase.from("messages").insert({
-                conversation_id: conversationId, user_id: userId, message_id: responseMessage.id, role: "assistant", parts: responseMessage.parts as never,
+                conversation_id: conversationId, user_id: userId, message_id: responseMessage.id || generateId(), role: "assistant", parts: responseMessage.parts as never,
               });
               if (error) console.error("save assistant msg", error);
             },
