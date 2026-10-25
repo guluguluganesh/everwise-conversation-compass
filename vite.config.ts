@@ -9,7 +9,7 @@ export default defineConfig({
     server: { entry: "server" },
   },
   // nitro accepts `alias` at runtime; the wrapper type omits it.
-  ...({ nitro: { cloudflare: { nodeCompat: true, deployConfig: true }, alias: { punycode: require.resolve("punycode/punycode.js"), "punycode/": require.resolve("punycode/punycode.js") } } } as object),
+  ...({ nitro: { alias: { punycode: require.resolve("punycode/punycode.js"), "punycode/": require.resolve("punycode/punycode.js") } } } as object),
   vite: {
     // mongodb -> whatwg-url imports Node's "punycode"; the edge polyfill is missing, so use the npm package.
     resolve: { alias: [{ find: /^punycode\/?$/, replacement: require.resolve("punycode/punycode.js") }] },

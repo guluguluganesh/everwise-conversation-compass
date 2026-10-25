@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import type { MongoClient } from "mongodb";
 
 export type MemoryType = "mistake" | "preference" | "coding_style" | "fact";
 export interface MemoryDoc {
@@ -15,7 +15,8 @@ async function getCollection() {
   const uri = process.env['MONGODB_URI'];
   if (!uri) throw new Error("MONGODB_URI is not configured");
   if (!clientPromise) {
-    clientPromise = new MongoClient(uri, { serverSelectionTimeoutMS: 8000 }).connect().catch((e) => {
+    // Loaded lazily so a database problem can never stop the rest of the site from loading.
+    clientPromise = import("mongodb").then(({ MongoClient }) => new MongoClient(uri, { serverSelectionTimeoutMS: 8000 }).connect()).catch((e) => {
       clientPromise = null;
       throw e;
     });
